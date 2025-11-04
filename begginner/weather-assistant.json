@@ -1,0 +1,447 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "formTitle": "Weather info ",
+          "formDescription": "we will get unique weather data from this form",
+          "formFields": {
+            "values": [
+              {
+                "fieldLabel": "Select your location from the list.",
+                "fieldType": "dropdown",
+                "fieldOptions": {
+                  "values": [
+                    {
+                      "option": "chicago"
+                    },
+                    {
+                      "option": "new york"
+                    },
+                    {
+                      "option": "london"
+                    },
+                    {
+                      "option": "shinghai"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.formTrigger",
+        "typeVersion": 2.3,
+        "position": [
+          -432,
+          800
+        ],
+        "id": "358c6c24-c6bf-4ad8-a4e6-adf079d9c91e",
+        "name": "Weather data",
+        "webhookId": "5139c753-7803-483d-b83d-988749cb7a1b"
+      },
+      {
+        "parameters": {
+          "content": "## This is weather data workflow ",
+          "height": 640,
+          "width": 1536,
+          "color": 5
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          -464,
+          544
+        ],
+        "typeVersion": 1,
+        "id": "5245c752-f1b9-473d-92bb-bd54c1f1a5a1",
+        "name": "Sticky Note1"
+      },
+      {
+        "parameters": {
+          "rules": {
+            "values": [
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "leftValue": "{{ $json['select yout location']}}",
+                      "rightValue": "chicago",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals"
+                      },
+                      "id": "28f64e9f-10c2-4e2b-a404-6020fdc8682e"
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "chicago"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "132d1675-0168-4fae-9195-1f076a048697",
+                      "leftValue": "={{ $json['select yout location']}}",
+                      "rightValue": "new york",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "name": "filter.operator.equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "new york"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "45a03061-dbcd-4764-bf0b-818f904a0e8e",
+                      "leftValue": "={{ $json['select yout location']}}",
+                      "rightValue": "london",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "name": "filter.operator.equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "london"
+              },
+              {
+                "conditions": {
+                  "options": {
+                    "caseSensitive": true,
+                    "leftValue": "",
+                    "typeValidation": "strict",
+                    "version": 2
+                  },
+                  "conditions": [
+                    {
+                      "id": "324ddd40-b678-4116-892b-773f1f56bcf6",
+                      "leftValue": "={{ $json['select yout location']}}",
+                      "rightValue": "shinghai",
+                      "operator": {
+                        "type": "string",
+                        "operation": "equals",
+                        "name": "filter.operator.equals"
+                      }
+                    }
+                  ],
+                  "combinator": "and"
+                },
+                "renameOutput": true,
+                "outputKey": "shinghai"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.switch",
+        "typeVersion": 3.2,
+        "position": [
+          -208,
+          768
+        ],
+        "id": "a12eca23-3410-402f-9af6-d8765362bdf9",
+        "name": "Switch1"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "30303ad2-6345-4b03-9d8c-c3ee19c015b8",
+                "name": "latitude",
+                "value": 552.22,
+                "type": "number"
+              },
+              {
+                "id": "2a931107-73f2-4368-a8a7-85306b8053b7",
+                "name": "longitude",
+                "value": 51025.3,
+                "type": "number"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          112,
+          560
+        ],
+        "id": "bb2d3c15-65b5-4d94-a36d-daf2227a71cb",
+        "name": "chicago cordinates"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "42f5caea-c066-4671-aae1-2e38fb7af47d",
+                "name": "latitude",
+                "value": 5120.4,
+                "type": "number"
+              },
+              {
+                "id": "8c050c31-6948-4b12-8b4a-ee1920bd84d1",
+                "name": "longitude",
+                "value": 777,
+                "type": "number"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          112,
+          704
+        ],
+        "id": "0c90124a-ae12-4ed3-a8ab-63034e468f4b",
+        "name": "new york cordinate"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "30303ad2-6345-4b03-9d8c-c3ee19c015b8",
+                "name": "latitude",
+                "value": 552.22,
+                "type": "number"
+              },
+              {
+                "id": "2a931107-73f2-4368-a8a7-85306b8053b7",
+                "name": "longitude",
+                "value": 51025.3,
+                "type": "number"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          128,
+          864
+        ],
+        "id": "91f58f7f-7cb4-4169-aded-b5c44c42614f",
+        "name": "london cordinates"
+      },
+      {
+        "parameters": {
+          "assignments": {
+            "assignments": [
+              {
+                "id": "30303ad2-6345-4b03-9d8c-c3ee19c015b8",
+                "name": "latitude",
+                "value": 552.22,
+                "type": "number"
+              },
+              {
+                "id": "2a931107-73f2-4368-a8a7-85306b8053b7",
+                "name": "longitude",
+                "value": 51025.3,
+                "type": "number"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.set",
+        "typeVersion": 3.4,
+        "position": [
+          144,
+          1008
+        ],
+        "id": "840adf23-ca59-4690-901a-b2a5fa3321bf",
+        "name": "shinghai cordinates"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          432,
+          752
+        ],
+        "id": "f2f68145-36d3-4a0d-9fa8-fe6d8a98ee83",
+        "name": "HTTP Request"
+      },
+      {
+        "parameters": {
+          "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n}\n\nreturn $input.all();"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          624,
+          752
+        ],
+        "id": "849f17d0-8108-41d3-a2bd-651ec926b868",
+        "name": "Code in JavaScript"
+      },
+      {
+        "parameters": {
+          "resource": "base",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.airtable",
+        "typeVersion": 2.1,
+        "position": [
+          832,
+          752
+        ],
+        "id": "6743c247-98c7-4913-9f3b-b6238bbe6dd0",
+        "name": "Get many bases"
+      }
+    ],
+    "connections": {
+      "Weather data": {
+        "main": [
+          [
+            {
+              "node": "Switch1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Switch1": {
+        "main": [
+          [
+            {
+              "node": "chicago cordinates",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "new york cordinate",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "london cordinates",
+              "type": "main",
+              "index": 0
+            }
+          ],
+          [
+            {
+              "node": "shinghai cordinates",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "chicago cordinates": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "new york cordinate": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "london cordinates": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "shinghai cordinates": {
+        "main": [
+          [
+            {
+              "node": "HTTP Request",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "HTTP Request": {
+        "main": [
+          [
+            {
+              "node": "Code in JavaScript",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Code in JavaScript": {
+        "main": [
+          [
+            {
+              "node": "Get many bases",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "instanceId": "cfc2a09af1aac7bc5e9d22c37a767e037dd5060d6ce3bc116e1652367a730e7e"
+    }
+  }

@@ -1,0 +1,167 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+        "typeVersion": 1.3,
+        "position": [
+          -160,
+          -112
+        ],
+        "id": "66f62a97-5d9a-422e-a594-10bd5697e27f",
+        "name": "When chat message received",
+        "webhookId": "850ab9c3-8679-47a2-851c-fec4a706528d"
+      },
+      {
+        "parameters": {
+          "options": {
+            "systemMessage": "=You are a helpful assistant.\n\nYou are an agent at determing which tool is best needed for the job and then passing user queries to those specific tools.\n\nThe two tools you will hacve access to are :\n\ngoogle_calendar_agent\n\nand \n\nemailing_agent\n\nThe user will be giving commands or asking questions about either their emil or google calendar. Your job is to pass two variables to each of these tools. The user query and a description of the task needing to be completed.\n\nYou are to create the description to clearly define what the user needs so the other agents can interpret the user better.\n\nI want these two system to work with one another.\n\nFor example, if the user creates an ent and wants to email someone about it, then you should cordinate the communication between the two agents."
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 2.2,
+        "position": [
+          32,
+          -112
+        ],
+        "id": "9ba0eb5b-4bce-4be1-be8f-1284ccb527a8",
+        "name": "Classifier"
+      },
+      {
+        "parameters": {
+          "description": "Call this tool in order to do anything regarding Google Calender.",
+          "workflowId": {
+            "__rl": true,
+            "value": "qDSsMvKwfoE4rOFz",
+            "mode": "list",
+            "cachedResultName": "projects — Google calendar agent"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {
+              "userQuery": "=",
+              "jobDescription": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('jobDescription', ``, 'string') }}"
+            },
+            "matchingColumns": [],
+            "schema": [
+              {
+                "id": "userQuery",
+                "displayName": "userQuery",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "canBeUsedToMatch": true,
+                "type": "string",
+                "removed": false
+              },
+              {
+                "id": "jobDescription",
+                "displayName": "jobDescription",
+                "required": false,
+                "defaultMatch": false,
+                "display": true,
+                "canBeUsedToMatch": true,
+                "type": "string",
+                "removed": false
+              }
+            ],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+        "typeVersion": 2.2,
+        "position": [
+          256,
+          112
+        ],
+        "id": "17c9d437-1181-407a-8adb-26775a385e98",
+        "name": "Call 'Google calendar agent'"
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1,
+        "position": [
+          -16,
+          48
+        ],
+        "id": "057c1869-1dee-4346-9564-86fb7f964997",
+        "name": "Google Gemini Chat Model",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "9FEPDiDR3HAmBTlV",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "contextWindowLength": 10
+        },
+        "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+        "typeVersion": 1.3,
+        "position": [
+          112,
+          144
+        ],
+        "id": "27135dca-7e33-498a-a214-9eeb4e96e4ea",
+        "name": "Simple Memory"
+      }
+    ],
+    "connections": {
+      "When chat message received": {
+        "main": [
+          [
+            {
+              "node": "Classifier",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Call 'Google calendar agent'": {
+        "ai_tool": [
+          [
+            {
+              "node": "Classifier",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Classifier",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Simple Memory": {
+        "ai_memory": [
+          [
+            {
+              "node": "Classifier",
+              "type": "ai_memory",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {},
+    "meta": {
+      "templateCredsSetupCompleted": true,
+      "instanceId": "cfc2a09af1aac7bc5e9d22c37a767e037dd5060d6ce3bc116e1652367a730e7e"
+    }
+  }
